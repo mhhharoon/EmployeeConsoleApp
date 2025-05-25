@@ -1,0 +1,50 @@
+using System;
+
+namespace EmployeeConsoleApp
+{
+    // Defines an Employee with Id, FirstName, LastName
+    public class Employee
+    {
+        // Unique identifier
+        public int Id { get; set; }
+
+        // Employee's first name
+        public string FirstName { get; set; }
+
+        // Employee's last name
+        public string LastName { get; set; }
+
+        // Overload == to compare two Employees by Id
+        public static bool operator ==(Employee left, Employee right)
+        {
+            // Handle null on either side
+            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+                return true;
+            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
+                return false;
+
+            // Two employees are equal if their Ids match
+            return left.Id == right.Id;
+        }
+
+        // Overload != to be consistent with ==
+        public static bool operator !=(Employee left, Employee right)
+        {
+            return !(left == right);
+        }
+
+        // Override Equals to match operator ==
+        public override bool Equals(object obj)
+        {
+            if (obj is Employee other)
+                return this == other;
+            return false;
+        }
+
+        // When overriding Equals, always override GetHashCode
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+    }
+}
